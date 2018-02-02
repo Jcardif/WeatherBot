@@ -1,23 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Luis;
+using Microsoft.Bot.Builder.Luis.Models;
+using Microsoft.Bot.Connector;
 
 namespace WeatherBot.Dialogs
 {
+    
     [Serializable]
-    public class WeatherDialog : IDialog<object>
+    public class WeatherDialog : LuisDialog<object>
     {
         public Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
+
+            return Task.CompletedTask;
         }
 
-        private Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, LuisResult result)
         {
-            
+            var activity = await result as IMessageActivity;
+
+            // TODO: Put logic for handling user message here
+
+            context.Wait(MessageReceivedAsync);
         }
     }
 }
