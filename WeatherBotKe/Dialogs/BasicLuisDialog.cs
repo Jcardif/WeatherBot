@@ -26,7 +26,8 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
-            
+            await context.PostAsync("With blanks I cannot help");
+            context.Wait(MessageReceived);
         }
 
         [LuisIntent("getWeather")]
@@ -51,20 +52,15 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("Greeting")]
         public async Task GreetingIntent(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("Hi, there how cam I help?");
+            await context.PostAsync("Hi, there how can I help?");
             context.Wait(MessageReceived);
-        }
-
-        [LuisIntent("Cancel")]
-        public async Task CancelIntent(IDialogContext context, LuisResult result)
-        {
-            
         }
 
         [LuisIntent("Help")]
         public async Task HelpIntent(IDialogContext context, LuisResult result)
         {
-            
+            await context.PostAsync("The QnA section will be available soon");
+            context.Wait(MessageReceived);
         }
 
         private static async Task<dynamic> GetCurrentWeatherUsingAPI(string location)
